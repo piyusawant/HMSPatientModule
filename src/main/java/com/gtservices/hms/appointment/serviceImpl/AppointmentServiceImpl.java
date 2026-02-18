@@ -1,4 +1,4 @@
-package com.gtservices.hms.appointment.serviceImpl;
+/*package com.gtservices.hms.appointment.serviceImpl;
 
 import com.gtservices.hms.appointment.dto.AppointmentCreateRequestDto;
 import com.gtservices.hms.appointment.dto.AppointmentResponseDto;
@@ -187,3 +187,4 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
     }
 }
+*/

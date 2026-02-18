@@ -1,5 +1,6 @@
 package com.gtservices.hms.patient.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gtservices.hms.appointment.entity.Appointment;
 import com.gtservices.hms.billing.entity.Payment;
 import com.gtservices.hms.user.entity.User;
@@ -32,17 +33,17 @@ public class Patient {
     @Column(name = "patient_name", length = 100)
     private String patientName;
 
+    @Column(name = "email", length = 100)
+    private String email;
+
+    @Column(name = "mobile_no", unique = true, length = 15)
+    private String mobileNo;
+
     @Column(name = "age")
     private Integer age;
 
     @Column(name = "address", columnDefinition = "TEXT")
     private String address;
-
-    @Column(name = "mobile_no", unique = true, length = 15)
-    private String mobileNo;
-
-    @Column(name = "email", length = 100)
-    private String email;
 
     @Column(name = "blood_group", length = 10)
     private String bloodGroup;
@@ -70,10 +71,8 @@ public class Patient {
     private User user;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<PatientFamily> familyMembers;
-
-
-
 
 
 }

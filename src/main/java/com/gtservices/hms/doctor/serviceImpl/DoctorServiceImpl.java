@@ -1,4 +1,4 @@
-package com.gtservices.hms.doctor.serviceImpl;
+/*package com.gtservices.hms.doctor.serviceImpl;
 
 import com.gtservices.hms.doctor.dto.DoctorRegistrationRequestDto;
 import com.gtservices.hms.doctor.dto.DoctorResponseDto;
@@ -152,3 +152,4 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorMapper.toResponse(savedDoctor);
     }
 }
+*/

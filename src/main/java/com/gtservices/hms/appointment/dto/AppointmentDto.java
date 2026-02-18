@@ -17,6 +17,7 @@ public class AppointmentDto
     private String doctorName;
     private LocalDate appointmentDate;
     private LocalTime appointmentTime;
-    private AppointmentStatus appointmentStatus;  // Use enum type
+    private AppointmentStatus appointmentStatus;
     private String reasonForVisit;
+
 }

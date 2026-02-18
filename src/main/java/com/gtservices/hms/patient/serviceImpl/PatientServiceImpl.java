@@ -2,7 +2,14 @@ package com.gtservices.hms.patient.serviceImpl;
 
 import com.gtservices.hms.appointment.dto.AppointmentDto;
 import com.gtservices.hms.appointment.dto.PatientAppointmentsDto;
+import com.gtservices.hms.appointment.entity.Appointment;
+import com.gtservices.hms.appointment.mapper.AppointmentMapper;
 import com.gtservices.hms.appointment.repository.AppointmentRepository;
+import com.gtservices.hms.billing.dto.BillingDto;
+import com.gtservices.hms.billing.entity.Payment;
+import com.gtservices.hms.billing.mapper.BillingMapper;
+import com.gtservices.hms.billing.repository.PaymentRepository;
+import com.gtservices.hms.enums.AppointmentStatus;
 import com.gtservices.hms.patient.dto.PatientRequestDto;
 import com.gtservices.hms.patient.dto.PatientResponseDto;
 import com.gtservices.hms.patient.entity.Patient;
@@ -29,12 +36,12 @@ import java.util.stream.Collectors;
 public class PatientServiceImpl implements PatientService
 {
     private final PatientRepository patientRepository;
-
+    private final PaymentRepository paymentRepository;
     private final AppointmentRepository appointmentRepository;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
-
+    //Patient Registration
     @Override
     public PatientResponseDto registerPatient(PatientRequestDto dto)
     {
@@ -92,12 +99,10 @@ public class PatientServiceImpl implements PatientService
             savedPatient.setFamilyMembers(familyList);
             patientRepository.save(savedPatient);
         }
-
-
         return PatientMapper.mapToDTO(savedPatient);
-
     }
 
+    //Get Appointment with patient ID
     @Override
     public PatientAppointmentsDto getPatientAppointments(Integer patientId) {
 
@@ -129,7 +134,65 @@ public class PatientServiceImpl implements PatientService
         dto.setAppointments(appointmentDTOs);
 
         return dto;
+    }
+
+    //Search Patient with name email mobile number
+    @Override
+    public List<Patient> searchPatients(String query)
+    {
+        return patientRepository.searchPatients(query);
+    }
+    //Get Patient with id
+    @Override
+    public Patient getPatientById(Integer patientId)
+    {
+        return patientRepository.findByPatientId(patientId)
+                .orElseThrow(() -> new RuntimeException("Patient not Found with ID:" + patientId));
+    }
+
+    //Get Appointment with patient and  appointment status
+    @Override
+    public List<AppointmentDto>getPatientAppointments(Integer patientId, AppointmentStatus appointmentStatus)
+    {
+        patientRepository.findByPatientId(patientId)
+                .orElseThrow(() -> new RuntimeException("Patient Not Found"));
+
+        List<Appointment> appointments;
+        if(appointmentStatus != null)
+        {
+            appointments =appointmentRepository.findByPatientPatientIdAndAppointmentStatus(patientId,appointmentStatus);
+        }else {
+            appointments = appointmentRepository.findByPatientPatientId(patientId);
+        }
+
+        return appointments.stream()
+                .map(AppointmentMapper::mapToDto).toList();
+    }
+
+    //Get Billing Details of Patient
+    @Override
+    public List<BillingDto> getPatientBilling(Integer patientId)
+    {
+        patientRepository.findByPatientId(patientId)
+                .orElseThrow(() -> new RuntimeException("Patient Not found"));
+
+        List<Payment> payments = paymentRepository.findByPatientPatientId(patientId);
+
+        return payments.stream()
+                .map(BillingMapper::mapToDto).toList();
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

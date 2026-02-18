@@ -1,5 +1,6 @@
 package com.gtservices.hms.patient.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,6 +29,7 @@ public class PatientFamily {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
+    @JsonBackReference
     private Patient patient;
 
     @Column(name = "member_name", length = 100)

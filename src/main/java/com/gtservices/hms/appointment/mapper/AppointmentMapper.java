@@ -40,6 +40,18 @@ public class AppointmentMapper {
                 .build();
     }
 
+    public static AppointmentDto mapToDto(Appointment appointment)
+    {
+        if(appointment == null)
+            return null;
+        AppointmentDto dto = new AppointmentDto();
+        dto.setAppointmentId(appointment.getAppointmentId());
+        dto.setAppointmentDate(appointment.getAppointmentDate());
+        dto.setAppointmentTime(appointment.getAppointmentTime());
+        dto.setAppointmentStatus(appointment.getAppointmentStatus());
+        return dto;
+    }
+
     private static String generateUid() {
         return "APT-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
