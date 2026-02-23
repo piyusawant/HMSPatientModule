@@ -11,7 +11,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
 
 @Entity
@@ -39,8 +41,9 @@ public class Patient {
     @Column(name = "mobile_no", unique = true, length = 15)
     private String mobileNo;
 
-    @Column(name = "age")
-    private Integer age;
+    //Date of Birth
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
 
     @Column(name = "address", columnDefinition = "TEXT")
     private String address;
@@ -54,7 +57,7 @@ public class Patient {
     @Column(name = "weight")
     private Double weight;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -74,5 +77,20 @@ public class Patient {
     @JsonManagedReference
     private List<PatientFamily> familyMembers;
 
+    @PrePersist
+    protected void onCreate()
+    {
+        this.createdAt = LocalDateTime.now();
+    }
+    //Age Calculation
+    @Transient
+    public Integer getAge()
+    {
+        if(this.dateOfBirth == null)
+        {
+            return null;
+        }
+        return Period.between(this.dateOfBirth, LocalDate.now()).getYears();
+    }
 
 }

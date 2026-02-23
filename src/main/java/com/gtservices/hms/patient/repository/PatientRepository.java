@@ -1,6 +1,8 @@
 package com.gtservices.hms.patient.repository;
 
 import com.gtservices.hms.patient.entity.Patient;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,10 +17,6 @@ public interface PatientRepository extends JpaRepository<Patient, Integer>
 
     Optional<Patient> findByMobileNo(String mobileNo);
     Optional<Patient>findByPatientId(Integer patientId);
-
-    @Query("SELECT p FROM Patient p WHERE " +
-            "LOWER(p.patientName) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-            "LOWER(p.email) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-            "p.mobileNo LIKE CONCAT('%', :query, '%')")
-    List<Patient> searchPatients(@Param("query") String query);
+    Page<Patient>findByPatientNameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrMobileNoContaining(
+            String patientName, String email, String mobileNo, Pageable pageable);
 }

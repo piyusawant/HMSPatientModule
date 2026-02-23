@@ -1,4 +1,4 @@
-/*package com.gtservices.hms.appointment.controller;
+package com.gtservices.hms.appointment.controller;
 
 import com.gtservices.hms.appointment.dto.AppointmentCreateRequestDto;
 import com.gtservices.hms.appointment.dto.AppointmentResponseDto;
@@ -72,4 +72,3 @@ public class AppointmentController {
 
 
 }
-*/

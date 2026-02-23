@@ -21,6 +21,6 @@ public class PatientAppointmentsDto
     private String patientName;
     private String email;
     private String mobileNo;
-    private List<AppointmentDto> appointments;
+    private List<AppointmentResponseDto> appointments;
 
 }

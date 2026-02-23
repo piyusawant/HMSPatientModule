@@ -1,4 +1,4 @@
-/*package com.gtservices.hms.appointment.service;
+package com.gtservices.hms.appointment.service;
 
 import com.gtservices.hms.appointment.dto.AppointmentCreateRequestDto;
 import com.gtservices.hms.appointment.dto.AppointmentResponseDto;
@@ -19,4 +19,3 @@ public interface AppointmentService {
                                                                    String direction);
 
 }
-*/

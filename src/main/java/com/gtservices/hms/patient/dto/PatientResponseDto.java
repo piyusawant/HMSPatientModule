@@ -2,6 +2,7 @@ package com.gtservices.hms.patient.dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,9 +15,10 @@ public class PatientResponseDto {
     private Integer patientId;
     private String patientUid;
     private String patientName;
-    private Integer age;
     private String address;
     private String mobileNo;
+    private LocalDate dateOfBirth;
+    private Integer age;
     private String email;
     private String bloodGroup;
     private String bloodPressure;

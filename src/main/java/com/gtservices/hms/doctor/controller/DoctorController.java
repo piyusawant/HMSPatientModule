@@ -1,4 +1,4 @@
-/*package com.gtservices.hms.doctor.controller;
+package com.gtservices.hms.doctor.controller;
 
 import com.gtservices.hms.doctor.dto.DoctorRegistrationRequestDto;
 import com.gtservices.hms.doctor.dto.DoctorResponseDto;
@@ -27,4 +27,3 @@ public class DoctorController {
     }
 }
 
-*/
